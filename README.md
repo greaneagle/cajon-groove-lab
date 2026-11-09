@@ -6,9 +6,10 @@ A mobile-friendly cajón practice game that listens through your microphone. Pla
 
 - Guided practice for 3/4 and 4/4 rhythms, including eighth-note patterns
 - Pattern editor and adjustable BPM
-- Real-time microphone hit detection, score and streak
+- Low-latency AudioWorklet hit detection, score and streak
 - Free-play tempo coach
-- Five-sample bass and slap calibration
+- On-device 15+15 sample bass/slap calibration using a tiny k-nearest-neighbors model
+- Live confidence meter and correction buttons that teach the model from mistakes
 - Installable PWA with basic offline app-shell support
 
 ## Run it
@@ -19,7 +20,7 @@ For local development, serve the directory over `http://localhost` (a secure bro
 
 ## Privacy
 
-Microphone samples are processed on-device. Calibration statistics and settings are saved in your browser's local storage; the app does not upload recordings or personal practice data. Browser microphone permission is required.
+Microphone samples are processed on-device. The trained model stores compact acoustic feature vectors, not raw recordings. Calibration statistics, corrections and settings are saved in your browser's local storage; the app does not upload recordings or personal practice data. Browser microphone permission is required.
 
 ## GitHub Pages
 

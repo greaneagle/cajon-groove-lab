@@ -1,5 +1,5 @@
-const CACHE = 'cajon-groove-shell-v2';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+const CACHE = 'cajon-groove-shell-v3';
+const SHELL = ['./', './index.html', './manifest.webmanifest', './audio-ml.js', './detector-worklet.js', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
 });
