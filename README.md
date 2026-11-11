@@ -1,5 +1,28 @@
 # Cajón Groove Lab 🥁
 
+## v5 testing export
+
+The Settings page now has **Export debug log** and **Clear debug log**. Recording
+begins automatically, retains up to 2,500 events locally for 24 hours, and
+survives refreshes. Export downloads a JSON file suitable for sharing with a
+developer. It contains event timestamps, attack energies and thresholds,
+onset candidates, classification decisions, scoring offsets, metronome
+scheduling, settings, and aggregated calibration quality. No raw audio,
+calibration feature vectors, account details or full user agent are exported.
+
+Use `node test-debug.cjs` to test diagnostic persistence and privacy filtering.
+
+## v4 updates
+
+- Early provisional hit indicators, followed by bass/slap confirmation after feature extraction.
+- Onset re-arming and resonance filtering to reduce double hits without blocking quick successive strokes.
+- Recognition filtering for weak or unfamiliar sounds; manually teach background noises in microphone diagnostics.
+- Live microphone-energy chart, accepted/rejected onset log, processing lag, and manual missed-hit counter.
+- Device-local timing compensation slider (-150 to +150 ms). Begin at 0 and adjust only after checking a consistent offset.
+- Audio-clock scheduled metronome and scoring grace period to accommodate delayed feature extraction.
+
+Offline synthetic detector test: `node test-detector.cjs`. Verify microphone and real playing on a phone before relying on scores.
+
 A mobile-friendly cajón practice game that listens through your microphone. Play bass and slap patterns at a chosen tempo, create your own exercises, track timing, and calibrate the sound recognition to your instrument.
 
 ## Features

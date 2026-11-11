@@ -61,5 +61,18 @@
     return {correct,total,accuracy:total?correct/total:0,uncertain};
   }
 
-  root.CajonML={features,predict,validate};
+  // Compare feature vectors using the calibration spread, so user-tagged room
+  // noises can be rejected without changing the reliable bass/slap classifier.
+  function noiseSimilarity(model,vector) {
+    const negatives=model?.noiseExamples||[];
+    if(!negatives.length)return Infinity;
+    const positives=[...(model.B||[]),...(model.S||[])];
+    const dims=vector.length,mu=Array(dims).fill(0),sd=Array(dims).fill(0);
+    for(const v of positives)for(let j=0;j<dims;j++)mu[j]+=v[j]/positives.length;
+    for(const v of positives)for(let j=0;j<dims;j++)sd[j]+=(v[j]-mu[j])**2/positives.length;
+    for(let j=0;j<dims;j++)sd[j]=Math.max(.1,Math.sqrt(sd[j]));
+    return Math.min(...negatives.filter(v=>v.length===dims).map(v=>Math.sqrt(v.reduce((s,x,j)=>s+Math.min(20,((x-vector[j])/sd[j])**2),0)/dims)),Infinity);
+  }
+
+  root.CajonML={features,predict,validate,noiseSimilarity};
 })(typeof window!=='undefined'?window:globalThis);
